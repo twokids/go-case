@@ -1,0 +1,54 @@
+syntax = "proto3";
+// 添加下面的go_package，分号前表示生成的**.pb.go文件的存放地址（会自动生成目录）,分号后表示*.pb.go文件所属的包名
+option go_package= "src/Courses"; //根目录bat
+//protoc --proto_path=src/protos --micro_out=. --go_out=. Courses.proto
+//设置go_package为"src/Courses"，执行上命令成功在go_out位置创建了2个文件
+//import "Common.proto";
+package Courses;
+
+service CourseService{
+  rpc ListForTop(CourseLstRequest) returns (CourseLstResponse) {}
+  rpc GetDetail(DetailRequest) returns(DetailResponse){}
+}
+
+message CourseModel{
+  int32 course_id=1;
+  string course_name=2;
+  string course_disp_name=3;
+  string course_intr=4;
+  float course_price=5;
+  float course_price2=6;
+  // @inject_tag: gorm:"type:timestamp"
+  // Timestamp addtime=7;
+}
+
+message CourseLstRequest{
+  // @inject_tag: form:"size"
+  int32 size = 1;
+}
+
+message CourseLstResponse{
+  repeated CourseModel result = 1;
+}
+
+message DetailRequest{
+  // @inject_tag: uri:"course_id"
+  int32 course_id=1;
+  // @inject_tag: header:"fetch_type"
+  int32 fetch_type=2;
+}
+
+//计数
+message CourseCounts{
+  // @inject_tag: json:"-"
+  int32 count_id=1;
+  // @inject_tag: json:"-"
+  int32 course_id=2;
+  string count_key=3;
+  int32 count_value=4;
+}
+
+message DetailResponse{
+  CourseModel course=1;
+  repeated  CourseCounts counts=2;
+}

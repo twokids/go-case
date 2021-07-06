@@ -1,0 +1,8 @@
+## protoc
+
+#定位至项目根目录
+#配合protos中的目录位置设定
+#option go_package= "src/Users";
+#执行以下命令
+#protoc --proto_path=src/protos --micro_out=. --go_out=. Users.proto
+#会再根目录/src/Users下产生文件

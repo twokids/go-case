@@ -1,0 +1,19 @@
+syntax = "proto3";
+// 添加下面的go_package，分号前表示生成的**.pb.go文件的存放地址（会自动生成目录）,分号后表示*.pb.go文件所属的包名
+option go_package= "src/Users";
+//protoc --proto_path=src/protos --micro_out=. --go_out=. Users.proto
+//设置go_package为"src/Users"，执行上命令成功在go_out位置创建了2个文件
+
+package Users;
+
+service UserService{
+  rpc Test(UserRequest) returns (UserResponse) {}
+}
+
+message UserRequest{
+  string id = 1;
+}
+
+message UserResponse{
+  string ret = 1;
+}
